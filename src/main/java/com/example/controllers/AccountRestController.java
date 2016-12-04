@@ -40,7 +40,7 @@ public class AccountRestController {
 
     @RequestMapping(method = RequestMethod.POST)
     Account createAccount(@RequestBody Account input) {
-        return accountRepository.save(input);
+        return accountRepository.save(new Account(input.username, input.password));
     }
 
     @RequestMapping(method = RequestMethod.PUT)
