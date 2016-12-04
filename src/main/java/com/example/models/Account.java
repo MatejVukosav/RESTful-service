@@ -50,4 +50,8 @@ public class Account {
     public String getUsername() {
         return username;
     }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
 }

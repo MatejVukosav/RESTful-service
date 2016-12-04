@@ -6,18 +6,17 @@ import com.example.models.Account;
 import com.example.models.Image;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class Application {
 
-    //    https://spring.io/guides/tutorials/bookmarks/
+
+    // Tutorial   https://spring.io/guides/tutorials/bookmarks/
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -25,7 +24,7 @@ public class Application {
     @Bean
     CommandLineRunner init(AccountRepository accountRepository, ImageRepository imageRepository) {
         return (evt) -> Arrays.asList(
-                "ivan,luka,pero".split(","))
+                "matej123,jack,pero".split(","))
                 .forEach(
                         a -> {
                             Account account = accountRepository.save(new Account(a,
