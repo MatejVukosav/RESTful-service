@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mvukosav on 4.12.2016..
@@ -16,7 +16,7 @@ import java.util.Set;
 public class Account {
 
     @OneToMany(mappedBy = "account")
-    private Set<Image> images = new HashSet<>();
+    private List<Image> images = new ArrayList<>();
 
     @Id
     @GeneratedValue
@@ -35,9 +35,9 @@ public class Account {
     Account() {
     }
 
-    public Set<Image> getImages() {
-        return images;
-    }
+//    public Set<Image> getImages() {
+//        return images;
+//    }
 
     public Long getId() {
         return id;
@@ -51,7 +51,15 @@ public class Account {
         return username;
     }
 
-    public void setImages(Set<Image> images) {
+//    public void setImages(Set<Image> images) {
+//        this.images = images;
+//    }
+
+    public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public List<Image> getImages() {
+        return images;
     }
 }

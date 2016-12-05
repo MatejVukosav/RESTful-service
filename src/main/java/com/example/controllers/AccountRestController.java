@@ -29,6 +29,8 @@ public class AccountRestController {
     }
 
     /**
+     * Get account for given userId
+     *
      * @param userId of searched account
      * @return account
      */
@@ -38,11 +40,23 @@ public class AccountRestController {
         return accountRepository.findOne(userId);
     }
 
+    /**
+     * Create new account
+     *
+     * @param input account data
+     * @return created account
+     */
     @RequestMapping(method = RequestMethod.POST)
     Account createAccount(@RequestBody Account input) {
         return accountRepository.save(new Account(input.username, input.password));
     }
 
+    /**
+     * Update account
+     *
+     * @param input account with given data
+     * @return updated account
+     */
     @RequestMapping(method = RequestMethod.PUT)
     Account updateAccount(@RequestBody Account input) {
         validateUser(input.getId());
@@ -53,6 +67,12 @@ public class AccountRestController {
         return account;
     }
 
+    /**
+     * Delete account with userId
+     *
+     * @param userId id from user to be deleted
+     * @return HttpStatus
+     */
     //    localhost:8080/accounts/3/?access_token=b3dd0426-e5d3-473e-a567-93956cece181
     @RequestMapping(method = RequestMethod.DELETE, value = "/{userId}")
     ResponseEntity<Account> deleteAccount(@PathVariable Long userId) {
@@ -64,10 +84,10 @@ public class AccountRestController {
                 imageRepository.delete(image);
             }
             accountRepository.delete(account);
-            return new ResponseEntity<Account>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        return new ResponseEntity<Account>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -102,7 +122,10 @@ public class AccountRestController {
 //                .orElse(ResponseEntity.noContent().build());
 //    }
 
-
+    /**
+     * Validate if user exists
+     * @param userId id from user to be validated
+     */
     private void validateUser(Long userId) {
         this.accountRepository.findById(userId)
                 .orElseThrow(

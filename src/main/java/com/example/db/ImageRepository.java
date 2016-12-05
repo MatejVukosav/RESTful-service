@@ -10,4 +10,5 @@ import java.util.Collection;
  */
 public interface ImageRepository extends JpaRepository<Image, Long> {
     Collection<Image> findByAccountUsername(String username);
+    Collection<Image> findById(Long id);
 }
