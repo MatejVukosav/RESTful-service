@@ -31,6 +31,7 @@ public class ImageRestController {
 
     /**
      * Get all images from user with id userId
+     *
      * @param userId id from user
      * @return images
      */
@@ -40,6 +41,18 @@ public class ImageRestController {
         return this.accountRepository.findById(userId).get().getImages();
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{imageId}")
+    ResponseEntity<?> deleteImages(@PathVariable Long userId, @PathVariable Long imageId) {
+        this.validateUser(userId);
+        return this.accountRepository
+                .findById(userId)
+                .map(account -> {
+                    imageRepository.delete(imageId);
+                    return new ResponseEntity<>(HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 //    @RequestMapping(method = RequestMethod.GET, value = "/{imageId}")
 //    Image getImageById(@PathVariable Long userId, @PathVariable Long imageId) {
 //        this.validateUser(userId);
@@ -47,8 +60,7 @@ public class ImageRestController {
 //    }
 
     /**
-     *
-     * @param userId id from owner of image
+     * @param userId  id from owner of image
      * @param imageId id of image
      * @return image with imageId from user with id userId
      */
@@ -66,8 +78,9 @@ public class ImageRestController {
 
     /**
      * Add another image to account  with id userId
+     *
      * @param userId id of usew
-     * @param input image to be added to user
+     * @param input  image to be added to user
      * @return image if image is added else no content
      */
     @RequestMapping(method = RequestMethod.POST)
@@ -90,6 +103,7 @@ public class ImageRestController {
 
     /**
      * Validate if user exists
+     *
      * @param userId id from user to be validated
      */
     private void validateUser(Long userId) {
